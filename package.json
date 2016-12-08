@@ -1,0 +1,23 @@
+{
+  "name": "wechaty-vessel",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "log4js": "^1.0.1",
+    "typescript": "^2.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.oschina.net:ubiware/wechaty-vessel.git"
+  },
+  "keywords": [
+    "wechat"
+  ],
+  "author": "hai liang wang <hailiang.hl.wang@gmail.com>",
+  "license": "ISC"
+}
