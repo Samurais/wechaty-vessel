@@ -5,3 +5,4 @@ typings/
 dist/
 src/config/environment/development.ts
 src/config/environment/production.ts
+demo.wechaty.json
