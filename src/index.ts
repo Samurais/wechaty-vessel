@@ -42,7 +42,7 @@ bot
         }
         logger.info(`${url}\n[${code}] Scan QR Code in above url to login: `)
     })
-    .on('message', m => {
+    .on('message', (m: Message) => {
         try {
             if (m.self()) { return }
             const room = m.room();
@@ -57,7 +57,7 @@ bot
                 logger.debug((room ? '[' + room.topic() + ']' : '')
                     + '<' + m.from().name() + '>'
                     + ':' + m.toStringDigest()
-                )
+                );
             }
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)
