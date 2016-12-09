@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-  exec = require('child_process').exec;
+  exec = require('child_process').exec,
+  nodemon = require('gulp-nodemon');
 
 gulp.task('build', ['compile'], function () {
   return gulp.src('./src/**/*.json')
@@ -17,6 +18,23 @@ gulp.task('compile', function (done) {
   });
 });
 
-gulp.task('watch', function (done) {
-  gulp.watch(['./src/**/*'], ['build'])
-})
+gulp.task('watch', function () {
+  gulp.watch(['./src/**/*'], ['build']);
+});
+
+gulp.task('serve', function (done) {
+  nodemon({
+    script: 'dist/index.js',
+    ext: 'js json',
+    ignore: [
+      'src/',
+      'dist/logs',
+      'node_modules/'
+    ],
+    watch: ['dist'],
+    stdout: true,
+    readable: false
+  });
+});
+
+gulp.task('default', ['watch', 'serve']);

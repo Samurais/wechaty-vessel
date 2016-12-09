@@ -41,7 +41,7 @@ bot
         }
         logger.info(`${url}\n[${code}] Scan QR Code in above url to login: `)
     })
-    .on('message', (m: Message) => {
+    .on('message', m => {
         try {
             const room = m.room()
             logger.debug((room ? '[' + room.topic() + ']' : '')
@@ -51,10 +51,10 @@ bot
 
             if (/^(ding|ping|bing)$/i.test(m.content()) && !m.self()) {
                 m.say('dong')
-                log.info('Bot', 'REPLY: dong')
+                logger.info('Bot', 'REPLY: dong')
             }
         } catch (e) {
-            log.error('Bot', 'on(message) exception: %s', e)
+            logger.error('Bot', 'on(message) exception: %s', e)
         }
     })
 

@@ -21,7 +21,7 @@
     "@types/socket.io": "^1.4.27",
     "@types/ws": "0.0.37",
     "gulp": "^3.9.1",
-    "gulp-watch": "^4.3.11",
+    "gulp-nodemon": "^2.2.1",
     "nodemon": "^1.11.0"
   },
   "scripts": {

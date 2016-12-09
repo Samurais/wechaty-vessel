@@ -6,3 +6,5 @@ dist/
 src/config/environment/development.ts
 src/config/environment/production.ts
 demo.wechaty.json
+!logs/README.md
+logs/*.log
