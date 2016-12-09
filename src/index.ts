@@ -1,45 +1,23 @@
 /**
  * Index 
  */
-import config from './config/environment';
-const log4js = require('log4js');
-const logger = log4js.getLogger();
-
-logger.info('log4js', config.env);
-
-/**
- *
- * Wechaty - Wechat for Bot
- *
- * Connecting ChatBots
- * https://github.com/wechaty/wechaty
- *
- */
 
 /* tslint:disable:variable-name */
+import config from './config/environment';
+import logging from './services/logging';
+import { Wechaty, log, Config, Message } from 'wechaty';
+const logger = logging.getLogger('app');
 const QrcodeTerminal = require('qrcode-terminal')
 const nodeCleanup = require('node-cleanup')
-
-import {
-    Wechaty
-    , Config
-    , log
-} from 'wechaty';
-
 const welcome = `
-| __        __        _           _
-| \\ \\      / /__  ___| |__   __ _| |_ _   _
-|  \\ \\ /\\ / / _ \\/ __| '_ \\ / _\` | __| | | |
-|   \\ V  V /  __/ (__| | | | (_| | |_| |_| |
-|    \\_/\\_/ \\___|\\___|_| |_|\\__,_|\\__|\\__, |
-|                                     |___/
-
-=============== Powered by Wechaty ===============
--------- https://github.com/zixia/wechaty --------
-
-I'm a bot, my super power is talk in Wechat.
-
-If you send me a 'ding', I will reply you a 'dong'!
+                   _           _                                      _ 
+__      _____  ___| |__   __ _| |_ _   _     __   _____  ___ ___  ___| |
+\\ \\ /\\ / / _ \/ __|  '_ \\ / _\` | __| | | |____\\ \\ / \\/ _ \\/ __/ __|/ _ \\ |
+ \\ V  V /  __/ (__| | | | (_| | |_| |_| |_____\\ V /  __/\\__ \\__ \\  __/ |
+  \\_/\\_/ \\___|\\___|_| |_|\\__,_|\\__|\\__, |      \\_/ \\___||___/___/\\___|_|
+                                   |___/                                
+=============== Powered by wechaty-vessel ===============
+-------- https://github.com/Samurais/wechaty-vessel--------
 __________________________________________________
 
 Hope you like it, and you are very welcome to
@@ -49,7 +27,7 @@ Please wait... I'm trying to login in...
 
 `
 
-console.log(welcome)
+logger.info(welcome)
 const bot = Wechaty.instance({ profile: Config.DEFAULT_PROFILE })
 
 bot
@@ -61,12 +39,12 @@ bot
             let loginUrl = url.replace(/\/qrcode\//, '/l/')
             QrcodeTerminal.generate(loginUrl)
         }
-        console.log(`${url}\n[${code}] Scan QR Code in above url to login: `)
+        logger.info(`${url}\n[${code}] Scan QR Code in above url to login: `)
     })
-    .on('message', m => {
+    .on('message', (m: Message) => {
         try {
             const room = m.room()
-            console.log((room ? '[' + room.topic() + ']' : '')
+            logger.debug((room ? '[' + room.topic() + ']' : '')
                 + '<' + m.from().name() + '>'
                 + ':' + m.toStringDigest()
             )
@@ -92,6 +70,6 @@ bot.init()
 
 nodeCleanup((reason, code) => {
     const exitMsg = `Wechaty exit ${code} because of ${reason} `
-    console.log(exitMsg)
+    logger.info(exitMsg)
     bot.say(exitMsg)
 })
