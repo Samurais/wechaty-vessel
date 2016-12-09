@@ -24,7 +24,6 @@ Hope you like it, and you are very welcome to
 upgrade me for more super powers!
 
 Please wait... I'm trying to login in...
-
 `
 
 logger.info(welcome)

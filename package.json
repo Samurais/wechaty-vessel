@@ -7,6 +7,7 @@
     "log4js": "^1.0.1",
     "node-cleanup": "^1.0.1",
     "qrcode-terminal": "^0.11.0",
+    "superagent": "^3.1.0",
     "typescript": "^2.1.4",
     "wechaty": "^0.6.21"
   },
@@ -20,13 +21,15 @@
     "@types/sinon": "^1.16.32",
     "@types/socket.io": "^1.4.27",
     "@types/ws": "0.0.37",
+    "ava": "^0.17.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "nodemon": "^1.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/nodemon --watch dist dist/index.js"
+    "start": "node_modules/.bin/nodemon --watch dist dist/index.js",
+    "ava": "ava --extension ts dist/test"
   },
   "repository": {
     "type": "git",
