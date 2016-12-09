@@ -8,3 +8,8 @@ src/config/environment/production.ts
 demo.wechaty.json
 !logs/README.md
 logs/*.log
+.yarn-cache/
+.pki/
+yarn.lock
+.yarn/
+npm-debug.log

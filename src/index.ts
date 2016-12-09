@@ -51,7 +51,7 @@ bot
 
             if (/^(ding|ping|bing)$/i.test(m.content()) && !m.self()) {
                 m.say('dong')
-                logger.info('Bot', 'REPLY: dong')
+                logger.debug('Bot', 'dong')
             }
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)
