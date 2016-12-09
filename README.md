@@ -4,7 +4,7 @@
 git clone git@github.com:Samurais/wechaty-vessel.git
 cd wechaty-vessel
 npm install
-tsc
-npm start
+typings install
+scripts/start-docker-container.sh
 ```
 
