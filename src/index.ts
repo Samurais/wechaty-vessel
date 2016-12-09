@@ -6,7 +6,9 @@
 import config from './config/environment';
 import logging from './services/logging';
 import { Wechaty, log, Config, Message } from 'wechaty';
+import davidapi from './services/davidapi.service';
 const logger = logging.getLogger('app');
+const _ = require('lodash');
 const QrcodeTerminal = require('qrcode-terminal')
 const nodeCleanup = require('node-cleanup')
 const welcome = `
@@ -26,7 +28,7 @@ upgrade me for more super powers!
 Please wait... I'm trying to login in...
 `
 
-logger.info(welcome)
+logger.info(welcome);
 const bot = Wechaty.instance({ profile: Config.DEFAULT_PROFILE })
 
 bot
@@ -42,15 +44,20 @@ bot
     })
     .on('message', m => {
         try {
-            const room = m.room()
-            logger.debug((room ? '[' + room.topic() + ']' : '')
-                + '<' + m.from().name() + '>'
-                + ':' + m.toStringDigest()
-            )
-
-            if (/^(ding|ping|bing)$/i.test(m.content()) && !m.self()) {
-                m.say('dong')
-                logger.debug('Bot', 'dong')
+            if (m.self()) { return }
+            const room = m.room();
+            if (room && _.includes(m.content(), '@' + config.botName)) {
+                // a group message and @me
+                m.say("you said " + m.content());
+            } else if (!room) {
+                // just a private message
+                m.say(davidapi.getAnswer(m.content()));
+            } else {
+                // a group message but not @me
+                logger.debug((room ? '[' + room.topic() + ']' : '')
+                    + '<' + m.from().name() + '>'
+                    + ':' + m.toStringDigest()
+                )
             }
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)

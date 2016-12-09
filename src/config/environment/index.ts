@@ -8,7 +8,8 @@ env = env.toLowerCase();
 
 var all = {
     env: env,
-    root: path.normalize(__dirname + '/../..')
+    root: path.normalize(__dirname + '/../..'),
+    botName: "Aaron"
 };
 
-export default _.merge(all, require('./' + env + '.js') || {});
+export default _.merge(all, require('./' + env).default || {});
