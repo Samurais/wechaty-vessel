@@ -9,7 +9,7 @@ let davidapi = new DavidAPI(config.davidapi.baseUrl,
   config.davidapi.username,
   config.davidapi.password);
 
-test.cb('DavidAPI Test#getAnswer', t => {
+test.skip.cb('DavidAPI Test#getAnswer', t => {
   let question: string = 'yes';
   davidapi.getAnswer(question)
     .then(function (res) {

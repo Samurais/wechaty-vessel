@@ -2,5 +2,8 @@
   "globalDependencies": {
     "node": "registry:env/node#6.0.0+20161105011511",
     "superagent": "registry:dt/superagent#2.0.0+20160906143408"
+  },
+  "dependencies": {
+    "mongoose": "registry:npm/mongoose#4.3.5+20160628072220"
   }
 }

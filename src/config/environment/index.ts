@@ -14,6 +14,10 @@ var all = {
         baseUrl: '',
         username: '',
         password: ''
+    },
+    mongo:{
+        uris: '',
+        options: {}
     }
 };
 
