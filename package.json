@@ -28,7 +28,8 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "node_modules/.bin/nodemon --watch dist dist/index.js",
+    "start": "node dist/app.js",
+    "serve": "node_modules/.bin/nodemon --watch dist dist/app.js",
     "test": "node_modules/.bin/ava dist/test"
   },
   "repository": {

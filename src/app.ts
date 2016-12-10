@@ -4,7 +4,7 @@
 
 /* tslint:disable:variable-name */
 import config from './config/environment';
-import logging from './services/logging';
+import logging from './services/logging.service';
 import { Wechaty, log, Config, Message } from 'wechaty';
 import { DavidAPI } from './services/davidapi.service';
 const logger = logging.getLogger('app');

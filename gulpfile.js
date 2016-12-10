@@ -3,12 +3,12 @@ const gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     ava = require('gulp-ava');
 
-gulp.task('build', ['compile'], function() {
+gulp.task('copyJSON', function() {
     return gulp.src('./src/**/*.json')
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('compile', function(done) {
+gulp.task('compile', ['copyJSON'] ,function(done) {
     exec('tsc', function(err, stdOut, stdErr) {
         console.log(stdOut);
         if (err) {
@@ -29,13 +29,13 @@ gulp.task('watch:test', function() {
     gulp.watch(['./src/**/*'], ['test']);
 });
 
-gulp.task('watch', function() {
-    gulp.watch(['./src/**/*'], ['build']);
+gulp.task('watch:compile', function() {
+    gulp.watch(['./src/**/*'], ['compile']);
 });
 
-gulp.task('serve', function(done) {
+gulp.task('serve', ['compile'] ,function(done) {
     nodemon({
-        script: 'dist/index.js',
+        script: 'dist/app.js',
         ext: 'js json',
         ignore: [
             'src/',
@@ -48,4 +48,4 @@ gulp.task('serve', function(done) {
     });
 });
 
-gulp.task('default', ['watch', 'serve']);
+gulp.task('default', ['watch:compile','serve']);
