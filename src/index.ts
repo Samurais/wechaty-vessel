@@ -44,20 +44,33 @@ bot
     })
     .on('message', (m: Message) => {
         try {
+
             if (m.self()) { return }
             const room = m.room();
+            logger.debug((room ? '[' + room.topic() + ']' : '')
+                + '<' + m.from().name() + '>'
+                + ':' + m.toStringDigest()
+            );
             if (room && _.includes(m.content(), '@' + config.botName)) {
                 // a group message and @me
-                m.say("you said " + m.content());
+                let plainMessage = _.trim(_.replace(m.content(), '@' + config.botName, ''));
+                davidapi.getAnswer(plainMessage).then(function(result: string) {
+                    m.say(result);
+                })
+                    .catch(function(err) {
+                        logger.error('davidapi.getAnswer', err);
+                    });
             } else if (!room) {
                 // just a private message
-                m.say(davidapi.getAnswer(m.content()));
+                davidapi.getAnswer(m.content()).then(function(result: string) {
+                    m.say(result);
+                })
+                    .catch(function(err) {
+                        logger.error('davidapi.getAnswer', err);
+                    });
             } else {
                 // a group message but not @me
-                logger.debug((room ? '[' + room.topic() + ']' : '')
-                    + '<' + m.from().name() + '>'
-                    + ':' + m.toStringDigest()
-                );
+                logger.debug('keep slient.');
             }
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)

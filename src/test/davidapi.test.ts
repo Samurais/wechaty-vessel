@@ -4,8 +4,15 @@
 import { test } from 'ava';
 import davidapi from '../services/davidapi.service';
 
-test('QA', t => {
-  let a = davidapi.getAnswer('soo');
-  console.log('Get answer', a);
-  t.pass();
+test.cb('QA', t => {
+  davidapi.getAnswer('soo')
+    .then(function (res) {
+      console.log('Get answer', res);
+      t.pass();
+      t.end();
+    })
+    .catch(function (err) {
+      t.fail(err);
+      t.end();
+    });
 })
