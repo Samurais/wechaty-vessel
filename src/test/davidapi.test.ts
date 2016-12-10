@@ -2,12 +2,18 @@
  *
  */
 import { test } from 'ava';
-import davidapi from '../services/davidapi.service';
+import { DavidAPI } from '../services/davidapi.service';
+import config from '../config/environment';
 
-test.cb('QA', t => {
-  davidapi.getAnswer('soo')
+let davidapi = new DavidAPI(config.davidapi.baseUrl,
+  config.davidapi.username,
+  config.davidapi.password);
+
+test.cb('DavidAPI Test#getAnswer', t => {
+  let question: string = 'yes';
+  davidapi.getAnswer(question)
     .then(function (res) {
-      console.log('Get answer', res);
+      console.log(`Get answer of "${question}": `, res);
       t.pass();
       t.end();
     })
@@ -15,4 +21,4 @@ test.cb('QA', t => {
       t.fail(err);
       t.end();
     });
-})
+});

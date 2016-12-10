@@ -23,13 +23,13 @@
     "@types/ws": "0.0.37",
     "ava": "^0.17.0",
     "gulp": "^3.9.1",
+    "gulp-ava": "^0.15.0",
     "gulp-nodemon": "^2.2.1",
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/nodemon --watch dist dist/index.js",
-    "ava": "ava --extension ts dist/test"
+    "test": "node_modules/.bin/ava dist/test"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,18 @@
 {
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
         "outDir": "dist",
-        "moduleResolution": "node",
-        "target": "es6"
+        "declaration": true,
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "strictNullChecks": true,
+        "noImplicitAny": false,
+        "noUnusedParameters": false,
+        "noImplicitThis": false
     },
     "include": [
         "src/**/*"

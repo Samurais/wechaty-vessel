@@ -6,7 +6,7 @@
 import config from './config/environment';
 import logging from './services/logging';
 import { Wechaty, log, Config, Message } from 'wechaty';
-import davidapi from './services/davidapi.service';
+import { DavidAPI } from './services/davidapi.service';
 const logger = logging.getLogger('app');
 const _ = require('lodash');
 const QrcodeTerminal = require('qrcode-terminal')
@@ -27,7 +27,9 @@ upgrade me for more super powers!
 
 Please wait... I'm trying to login in...
 `
-
+let davidapi = new DavidAPI(config.davidapi.baseUrl,
+    config.davidapi.username,
+    config.davidapi.password);
 logger.info(welcome);
 const bot = Wechaty.instance({ profile: Config.DEFAULT_PROFILE })
 

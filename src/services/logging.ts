@@ -66,5 +66,6 @@ export default {
     getLevel: getLevel,
     resetLevel: resetLevel,
     setLevel: setLevel,
-    getLogger: getLogger
+    getLogger: getLogger,
+    hasLevel: hasLevel
 }
