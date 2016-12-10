@@ -10,10 +10,16 @@ rootDir=$(cd $baseDir/..;pwd)
 WECHATY_LOG='info'
 
 # functions
+function printUsage(){
+    echo "Usage:"
+    echo "$0 -d # This would run the docker in detached mode."
+    echo "$0 -t # This would run the docker in not-attached mode."
+}
+
 function main() {
   cd $rootDir
   docker run \
-    -t -i --rm \
+    $* \
     -e PATH="$PATH:/wechaty/bin:/wechaty/node_modules/.bin" \
     -e WECHATY_LOG="$WECHATY_LOG" \
     --volume="$rootDir":/bot \
@@ -22,6 +28,18 @@ function main() {
     default
 }
 
-# main 
+# main
 [ -z "${BASH_SOURCE[0]}" -o "${BASH_SOURCE[0]}" = "$0" ] || return
-main
+if [ "$#" -eq  "0" ]
+then
+    printUsage
+elif [ "$*" = "-t" ]
+then
+    main -t -i --rm
+elif [ "$*" = "-d" ]
+then
+    main -d
+else
+    printUsage
+fi
+
