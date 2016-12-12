@@ -9,7 +9,6 @@ env = env.toLowerCase();
 var all = {
     env: env,
     root: path.normalize(__dirname + '/../..'),
-    botName: "Aaron",
     davidapi: {
         baseUrl: '',
         username: '',

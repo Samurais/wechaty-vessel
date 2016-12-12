@@ -3,14 +3,12 @@
  */
 
 /* tslint:disable:variable-name */
-import config from './config/environment';
 import logging from './services/logging.service';
 import { Wechaty, log, Config, Message } from 'wechaty';
-import { DavidAPI } from './services/davidapi.service';
+import * as messageProxy from './proxy/message.proxy';
 const logger = logging.getLogger('app');
-const _ = require('lodash');
-const QrcodeTerminal = require('qrcode-terminal')
-const nodeCleanup = require('node-cleanup')
+const QrcodeTerminal = require('qrcode-terminal');
+const nodeCleanup = require('node-cleanup');
 const welcome = `
                    _           _                                      _ 
 __      _____  ___| |__   __ _| |_ _   _     __   _____  ___ ___  ___| |
@@ -25,13 +23,11 @@ __________________________________________________
 Hope you like it, and you are very welcome to
 upgrade me for more super powers!
 
-Please wait... I'm trying to login in...
+"please wait... I'm trying to login in..."
 `
-let davidapi = new DavidAPI(config.davidapi.baseUrl,
-    config.davidapi.username,
-    config.davidapi.password);
+
 logger.info(welcome);
-const bot = Wechaty.instance({ profile: Config.DEFAULT_PROFILE })
+const bot = Wechaty.instance({ profile: Config.DEFAULT_PROFILE });
 
 bot
     .on('login', user => log.info('Bot', `${user.name()} logined`))
@@ -46,34 +42,9 @@ bot
     })
     .on('message', (m: Message) => {
         try {
-
             if (m.self()) { return }
-            const room = m.room();
-            logger.debug((room ? '[' + room.topic() + ']' : '')
-                + '<' + m.from().name() + '>'
-                + ':' + m.toStringDigest()
-            );
-            if (room && _.includes(m.content(), '@' + config.botName)) {
-                // a group message and @me
-                let plainMessage = _.trim(_.replace(m.content(), '@' + config.botName, ''));
-                davidapi.getAnswer(plainMessage).then(function(result: string) {
-                    m.say(result);
-                })
-                    .catch(function(err) {
-                        logger.error('davidapi.getAnswer', err);
-                    });
-            } else if (!room) {
-                // just a private message
-                davidapi.getAnswer(m.content()).then(function(result: string) {
-                    m.say(result);
-                })
-                    .catch(function(err) {
-                        logger.error('davidapi.getAnswer', err);
-                    });
-            } else {
-                // a group message but not @me
-                logger.debug('keep slient.');
-            }
+            messageProxy.save(bot.user().name(), m);
+            messageProxy.reply(bot.user().name(),m);
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)
         }
