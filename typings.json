@@ -4,6 +4,7 @@
     "superagent": "registry:dt/superagent#2.0.0+20160906143408"
   },
   "dependencies": {
-    "mongoose": "registry:npm/mongoose#4.3.5+20160628072220"
+    "mongoose": "registry:npm/mongoose#4.3.5+20160628072220",
+    "mongoose-timestamp": "registry:npm/mongoose-timestamp#0.5.0+20160723033700"
   }
 }

@@ -16,8 +16,11 @@ gulp # start the server
 
 ## Run in Docker
 ```
-scripts/build-docker-image.sh
-scripts/start-docker-container.sh -d 
+docker push samurais/wechaty-vessel:latest
+cd wechaty-vessel
+npm install
+typings install
+scripts/start-docker-container.sh -d
 scripts/login-docker-container.sh
 ```
 
