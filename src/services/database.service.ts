@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import logging from './logging.service';
 import config from '../config/environment';
 const logger = logging.getLogger('database.service');
+mongoose.Promise = Promise;
 
 // 链接数据库
 mongoose.connect(config.mongo.uris, config.mongo.options);
