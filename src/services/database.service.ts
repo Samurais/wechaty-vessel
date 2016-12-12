@@ -11,23 +11,23 @@ mongoose.Promise = Promise;
 mongoose.connect(config.mongo.uris, config.mongo.options);
 let database = mongoose.connection;
 database.on('connected', function() {
-    logger.info('[MonoDB]:连接');
+    logger.info('[MongoDB]: connected.');
 });
 database.once('open', function() {
-    logger.info('[MonoDB]:打开'); /*global.gfs = Grid(database.db);*/
+    logger.info('[MongoDB]: opened.'); /*global.gfs = Grid(database.db);*/
 });
 database.on('error', function(err) {
     logger.error(err);
 });
 database.on('disconnected', function() {
-    logger.warn('[MonoDB]:断开');
+    logger.warn('[MongoDB]: disconnected.');
 });
 database.on('reconnected', function() {
-    logger.info('[MonoDB]:重连');
+    logger.info('[MongoDB]: reconnected.');
 });
 process.on('SIGINT', function() {
     database.close(function() {
-        logger.info('[MonoDB]: APP中断');
+        logger.info('[MongoDB]: App exits.');
         process.exit(0);
     });
 });

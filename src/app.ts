@@ -43,8 +43,8 @@ bot
     .on('message', (m: Message) => {
         try {
             if (m.self()) { return }
+            messageProxy.reply(bot.user().name(), m);
             messageProxy.save(bot.user().name(), m);
-            messageProxy.reply(bot.user().name(),m);
         } catch (e) {
             logger.error('Bot', 'on(message) exception: %s', e)
         }
