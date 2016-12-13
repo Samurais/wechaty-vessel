@@ -40,6 +40,12 @@ bot
         }
         logger.info(`${url}\n[${code}] Scan QR Code in above url to login: `)
     })
+    .on('friend', (contact, request) => {
+        if (request) {
+            request.accept();
+            logger.info(`${contact.name} accepted.`);
+        }
+    })
     .on('message', (m: Message) => {
         try {
             if (m.self()) { return }
