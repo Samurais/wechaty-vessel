@@ -43,6 +43,7 @@ bot
     .on('friend', (contact, request) => {
         if (request) {
             request.accept();
+            contact.say('你好，我是呤呤语伴的Selena[测试版]。');
             logger.info(`${contact.name} accepted.`);
         }
     })
